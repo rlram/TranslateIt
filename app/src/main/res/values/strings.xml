@@ -4,4 +4,6 @@
     <string name="arrow_forward">Arrow Forward</string>
     <string name="translate">Translate</string>
     <string name="type_here">Type here ...</string>
+    <string name="say_something">Say something</string>
+    <string name="voice_icon">Voice Icon</string>
 </resources>

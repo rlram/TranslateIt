@@ -99,6 +99,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etTextInputLang" />
 
+    <ImageView
+        android:id="@+id/ivVoiceInput"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:contentDescription="@string/voice_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvOutputLang"
+        app:srcCompat="@drawable/baseline_keyboard_voice_24"
+        app:tint="?attr/colorPrimary" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:text="@string/say_something"
+        app:layout_constraintEnd_toEndOf="@+id/ivVoiceInput"
+        app:layout_constraintStart_toStartOf="@+id/ivVoiceInput"
+        app:layout_constraintTop_toBottomOf="@+id/ivVoiceInput" />
+
+
     <Button
         android:id="@+id/btnTranslate"
         android:layout_width="wrap_content"

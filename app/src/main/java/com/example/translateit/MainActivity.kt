@@ -1,16 +1,21 @@
 package com.example.translateit
 
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
+import android.speech.RecognizerIntent
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -18,12 +23,14 @@ import com.google.firebase.ml.common.modeldownload.FirebaseModelDownloadConditio
 import com.google.firebase.ml.naturallanguage.FirebaseNaturalLanguage
 import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslateLanguage
 import com.google.firebase.ml.naturallanguage.translate.FirebaseTranslatorOptions
+import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
     private lateinit var spinnerInput: Spinner
     private lateinit var spinnerOutput: Spinner
     private lateinit var etTextInputLang: EditText
     private lateinit var tvOutputLang: TextView
+    private lateinit var ivVoiceInput: ImageView
     private lateinit var btnTranslate: Button
 
     private var inputLang = arrayOf("From", "English", "Afrikaans", "Arabic", "Bengali", "Hindi")
@@ -44,6 +51,7 @@ class MainActivity : AppCompatActivity() {
         spinnerOutput = findViewById(R.id.spinnerOutput)
         etTextInputLang = findViewById(R.id.etTextInputLang)
         tvOutputLang = findViewById(R.id.tvOutputLang)
+        ivVoiceInput = findViewById(R.id.ivVoiceInput)
         btnTranslate = findViewById(R.id.btnTranslate)
 
         spinnerInput.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -95,6 +103,25 @@ class MainActivity : AppCompatActivity() {
             if (text.isNotEmpty() && fromLangCode != 0 && toLangCode != 0) {
                 translateText(fromLangCode, toLangCode, text)
             }
+        }
+
+        val speechResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val data: Intent? = result.data
+                data?.let {
+                    val res: ArrayList<String> = it.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS) as ArrayList<String>
+                    etTextInputLang.setText(res[0])
+                }
+            }
+        }
+
+        ivVoiceInput.setOnClickListener {
+            val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+            intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak to convert into text")
+            speechResultLauncher.launch(intent)
+
         }
 
     }
