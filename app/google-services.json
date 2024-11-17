@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "956023764515",
+    "project_id": "ti-translateit",
+    "storage_bucket": "ti-translateit.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:956023764515:android:e6ef18835e6f656c1e2396",
+        "android_client_info": {
+          "package_name": "com.example.translateit"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQLFXGmPsfftuMZfJ0CWR_Vv2PKYs5Qfs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
